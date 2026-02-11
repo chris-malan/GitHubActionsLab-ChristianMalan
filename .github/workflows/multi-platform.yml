@@ -1,0 +1,60 @@
+  name: Multi-Platform Workflow
+
+  on:
+    pull_request:
+      branches:
+        - main
+
+  jobs:
+    ubuntu-job:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+
+        - name: Print runner OS
+          run: echo "Runner OS - $RUNNER_OS"
+
+        - name: OS-specific command (Linux)
+          run: uname -a
+
+        - name: Create a file and display contents (Linux)
+          run: |
+            echo "Hello from Ubuntu" > ubuntu.txt
+            cat ubuntu.txt
+
+
+    windows-job:
+      runs-on: windows-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+
+        - name: Print runner OS
+          run: echo "Runner OS - $env:RUNNER_OS"
+
+        - name: OS-specific command (Windows)
+          run: systeminfo
+
+        - name: Create a file and display contents (Windows)
+          run: |
+            "Hello from Windows" | Out-File windows.txt
+            Get-Content windows.txt
+
+
+    macos-job:
+      runs-on: macos-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+
+        - name: Print runner OS
+          run: echo "Runner OS - $RUNNER_OS"
+
+        - name: OS-specific command (macOS)
+          run: uname -a
+
+        - name: Create a file and display contents (macOS)
+          run: |
+            echo "Hello from macOS" > macos.txt
+            cat macos.txt
